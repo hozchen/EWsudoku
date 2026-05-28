@@ -18,7 +18,7 @@ This keeps the first Play review low risk. Revenue features can be added after t
 
 1. Version 1.0: Free, no ads
    - Goal: pass review, collect test feedback, improve store listing conversion.
-   - Retention hook: daily challenge.
+   - Retention hook: daily challenge and local streak tracking.
 
 2. Version 1.1: Add more retention improvements
    - Streaks
@@ -47,12 +47,13 @@ Classic Sudoku puzzles with a clean, colorful design for daily logic training.
 Full description:
 Sudoku Pop is a simple and colorful Sudoku puzzle game designed for quick play, focused practice, and daily brain training.
 
-Choose your difficulty, play the daily challenge, fill the board, use notes, undo moves, and track your best records. The game is lightweight, easy to start, and built for players who enjoy classic number puzzles without unnecessary distractions.
+Choose your difficulty, play the daily challenge, build your streak, fill the board, use notes, undo moves, and track your best records. The game is lightweight, easy to start, and built for players who enjoy classic number puzzles without unnecessary distractions.
 
 Features:
 - Classic 9x9 Sudoku gameplay
 - Multiple difficulty levels
 - Daily challenge
+- Local streak tracking
 - Notes mode
 - Hints
 - Undo
@@ -71,12 +72,13 @@ Short description:
 Full description:
 Sudoku Pop 是一款轻量、清爽的经典数独游戏，适合碎片时间游玩，也适合用来训练逻辑思维。
 
-你可以选择不同难度，游玩每日挑战，使用笔记、提示、撤销和成绩记录功能，逐步挑战更高难度。游戏无需账号，启动快速，界面简洁，专注于数独本身。
+你可以选择不同难度，游玩每日挑战，积累连续挑战天数，使用笔记、提示、撤销和成绩记录功能，逐步挑战更高难度。游戏无需账号，启动快速，界面简洁，专注于数独本身。
 
 功能：
 - 经典 9x9 数独
 - 多种难度
 - 每日挑战
+- 本地连续挑战记录
 - 笔记模式
 - 提示功能
 - 撤销功能

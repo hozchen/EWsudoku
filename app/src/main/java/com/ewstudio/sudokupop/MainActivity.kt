@@ -69,7 +69,13 @@ data class GameStrings(
     val victory: String, val gameOver: String, val timeLabel: String, val errorMax: String,
     val noRecords: String, val back: String, val done: String, val themeLabel: String,
     val langLabel: String, val autoTheme: String, val best: String, val master: String, val pro: String,
-    val hard: String, val normal: String, val beginner: String, val autoNotes: String
+    val hard: String, val normal: String, val beginner: String, val autoNotes: String,
+    val streakLabel: String, val dailyDone: String,
+)
+
+data class DailyChallengeProgress(
+    val streak: Int,
+    val completedToday: Boolean,
 )
 
 data class DifficultyStats(
@@ -81,10 +87,10 @@ data class DifficultyStats(
 )
 
 val Translations = mapOf(
-    Language.ZH_CN to GameStrings("Sudoku Pop", "波普潮流版", "新游戏", "继续游戏", "每日挑战", "积分榜", "设置", "选择难度", "取消", "关闭", "错误", "撤销", "提示", "笔记:开", "笔记:关", "擦除", "退出游戏?", "确定要退出吗? 进度将自动保存。", "退出", "挑战成功!", "游戏结束", "用时", "已错3次", "暂无数据", "返回", "确定", "主题选择", "语言选择", "跟随系统", "最高纪录", "大师", "专业", "困难", "普通", "入门者", "全开"),
-    Language.ZH_TW to GameStrings("Sudoku Pop", "波普潮流版", "新遊戲", "繼續遊戲", "每日挑戰", "積分榜", "設置", "選擇難度", "取消", "關閉", "錯誤", "撤銷", "提示", "筆記:開", "筆記:關", "擦除", "退出遊戲?", "確定要退出嗎? 進度將自動保存。", "退出", "挑戰成功!", "遊戲結束", "用時", "已錯3次", "暫無數據", "返回", "確定", "主題選擇", "語言選擇", "跟隨系統", "最高紀錄", "大師", "專業", "困難", "普通", "入門者", "全開"),
-    Language.EN to GameStrings("Sudoku Pop", "Playful Edition", "New Game", "Continue", "Daily Challenge", "Leaderboard", "Settings", "Difficulty", "Cancel", "CLOSE", "ERRORS", "Undo", "Hint", "Note:ON", "Note:OFF", "Erase", "Quit Game?", "Are you sure? Progress will be saved.", "QUIT", "Victory!", "Game Over", "Time", "3 errors", "No Records", "Back", "DONE", "Themes", "Language", "Follow System", "BEST", "Master", "Pro", "Hard", "Normal", "Beginner", "All Notes"),
-    Language.JA to GameStrings("Sudoku Pop", "ポップ版", "新規ゲーム", "再開する", "デイリーチャレンジ", "リーダーボード", "設定", "難易度を選択", "キャンセル", "閉じる", "ミス", "元に戻す", "ヒント", "メモ:オン", "メモ:オフ", "消しゴム", "終了しますか？", "ゲームを終了しますか？進捗は保存されます。", "終了", "完全勝利！", "ゲームオーバー", "時間", "3回ミス", "記録なし", "戻る", "決定", "テーマ", "言語", "システムに従う", "ベスト記録", "達人", "プロ", "難しい", "普通", "初級", "全メモ")
+    Language.ZH_CN to GameStrings("Sudoku Pop", "波普潮流版", "新游戏", "继续游戏", "每日挑战", "积分榜", "设置", "选择难度", "取消", "关闭", "错误", "撤销", "提示", "笔记:开", "笔记:关", "擦除", "退出游戏?", "确定要退出吗? 进度将自动保存。", "退出", "挑战成功!", "游戏结束", "用时", "已错3次", "暂无数据", "返回", "确定", "主题选择", "语言选择", "跟随系统", "最高纪录", "大师", "专业", "困难", "普通", "入门者", "全开", "连续", "今日已完成"),
+    Language.ZH_TW to GameStrings("Sudoku Pop", "波普潮流版", "新遊戲", "繼續遊戲", "每日挑戰", "積分榜", "設置", "選擇難度", "取消", "關閉", "錯誤", "撤銷", "提示", "筆記:開", "筆記:關", "擦除", "退出遊戲?", "確定要退出嗎? 進度將自動保存。", "退出", "挑戰成功!", "遊戲結束", "用時", "已錯3次", "暫無數據", "返回", "確定", "主題選擇", "語言選擇", "跟隨系統", "最高紀錄", "大師", "專業", "困難", "普通", "入門者", "全開", "連續", "今日已完成"),
+    Language.EN to GameStrings("Sudoku Pop", "Playful Edition", "New Game", "Continue", "Daily Challenge", "Leaderboard", "Settings", "Difficulty", "Cancel", "CLOSE", "ERRORS", "Undo", "Hint", "Note:ON", "Note:OFF", "Erase", "Quit Game?", "Are you sure? Progress will be saved.", "QUIT", "Victory!", "Game Over", "Time", "3 errors", "No Records", "Back", "DONE", "Themes", "Language", "Follow System", "BEST", "Master", "Pro", "Hard", "Normal", "Beginner", "All Notes", "Streak", "Done today"),
+    Language.JA to GameStrings("Sudoku Pop", "ポップ版", "新規ゲーム", "再開する", "デイリーチャレンジ", "リーダーボード", "設定", "難易度を選択", "キャンセル", "閉じる", "ミス", "元に戻す", "ヒント", "メモ:オン", "メモ:オフ", "消しゴム", "終了しますか？", "ゲームを終了しますか？進捗は保存されます。", "終了", "完全勝利！", "ゲームオーバー", "時間", "3回ミス", "記録なし", "戻る", "決定", "テーマ", "言語", "システムに従う", "ベスト記録", "達人", "プロ", "難しい", "普通", "初級", "全メモ", "連続", "本日完了")
 )
 
 enum class SudokuTheme(val label: String, val bg: Color, val primary: Color, val secondary: Color, val accent: Color, val textMain: Color, val cardBg: Color, val error: Color, val isDark: Boolean) {
@@ -124,6 +130,8 @@ class MainActivity : ComponentActivity() {
             var currentLang by remember { mutableStateOf(Language.valueOf(prefs.getString("lang", "ZH_CN") ?: "ZH_CN")) }
             var currentScreen by remember { mutableStateOf(Screen.SPLASH) }
             var gameTime by remember { mutableLongStateOf(0L) }
+            var isDailyChallenge by remember { mutableStateOf(false) }
+            var dailyProgress by remember { mutableStateOf(loadDailyChallengeProgress(prefs)) }
             val s = Translations[currentLang]!!
 
             LaunchedEffect(currentLang) { prefs.edit().putString("lang", currentLang.name).apply() }
@@ -139,30 +147,41 @@ class MainActivity : ComponentActivity() {
                                 s,
                                 currentTheme,
                                 prefs.getBoolean("has_saved_game", false),
+                                dailyProgress,
                                 { currentScreen = Screen.DIFFICULTY_SELECT },
                                 {
                                     game.generateDailyChallenge(todayKey())
                                     gameTime = 0L
+                                    isDailyChallenge = true
                                     currentScreen = Screen.GAME
                                 },
-                                { gameTime = game.loadProgress(prefs); currentScreen = Screen.GAME },
+                                {
+                                    gameTime = game.loadProgress(prefs)
+                                    isDailyChallenge = false
+                                    currentScreen = Screen.GAME
+                                },
                                 { currentScreen = Screen.LEADERBOARD },
                                 { currentScreen = Screen.SETTINGS },
                             )
                         }
                         Screen.DIFFICULTY_SELECT -> {
                             PlayfulBackground(currentTheme)
-                            DifficultySelectScreen(s, currentTheme, { diff -> game.generateNewGame(diff); gameTime = 0L; currentScreen = Screen.GAME }, { currentScreen = Screen.WELCOME })
+                            DifficultySelectScreen(s, currentTheme, { diff -> game.generateNewGame(diff); gameTime = 0L; isDailyChallenge = false; currentScreen = Screen.GAME }, { currentScreen = Screen.WELCOME })
                         }
                         Screen.GAME -> SudokuScreen(s, game, currentTheme, gameTime, { gameTime++; if (gameTime % 5 == 0L) game.saveProgress(prefs, gameTime) }, {
                             if (game.isSolved) {
                                 saveScore(prefs, game.currentDifficulty, gameTime)
                                 saveGameStats(prefs, game.currentDifficulty, true, gameTime, game.errorCount, game.hintsUsed)
+                                if (isDailyChallenge) {
+                                    saveDailyChallengeWin(prefs)
+                                    dailyProgress = loadDailyChallengeProgress(prefs)
+                                }
                                 prefs.edit().putBoolean("has_saved_game", false).apply()
                             } else if (game.isGameOver) {
                                 saveGameStats(prefs, game.currentDifficulty, false, gameTime, game.errorCount, game.hintsUsed)
                                 prefs.edit().putBoolean("has_saved_game", false).apply()
                             }
+                            isDailyChallenge = false
                             currentScreen = Screen.WELCOME
                         }, { soundPool.play(correctSoundId, 1f, 1f, 1, 0, 1f) }, { soundPool.play(errorSoundId, 1f, 1f, 1, 0, 1f) })
                         Screen.LEADERBOARD -> LeaderboardScreen(s, currentTheme, loadAllScores(prefs), loadAllStats(prefs), { currentScreen = Screen.WELCOME })
@@ -234,6 +253,26 @@ class MainActivity : ComponentActivity() {
 
 private fun todayKey(): String {
     return SimpleDateFormat("yyyyMMdd", Locale.US).format(Date())
+}
+
+private fun loadDailyChallengeProgress(prefs: android.content.SharedPreferences): DailyChallengeProgress {
+    val today = todayKey()
+    val lastCompleted = prefs.getString("daily_last_completed", null)
+    return DailyChallengeProgress(
+        streak = prefs.getInt("daily_streak", 0),
+        completedToday = DailyChallengeTracker.isCompletedToday(lastCompleted, today),
+    )
+}
+
+private fun saveDailyChallengeWin(prefs: android.content.SharedPreferences) {
+    val today = todayKey()
+    val lastCompleted = prefs.getString("daily_last_completed", null)
+    val currentStreak = prefs.getInt("daily_streak", 0)
+    val nextStreak = DailyChallengeTracker.nextStreak(lastCompleted, today, currentStreak)
+    prefs.edit()
+        .putString("daily_last_completed", today)
+        .putInt("daily_streak", nextStreak)
+        .apply()
 }
 
 @Composable
@@ -310,13 +349,15 @@ private fun SplashSudokuMark(theme: SudokuTheme) {
     }
 }
 
-@Composable fun WelcomeScreen(s: GameStrings, theme: SudokuTheme, hasSavedGame: Boolean, onNewGame: () -> Unit, onDailyChallenge: () -> Unit, onContinue: () -> Unit, onLeaderboard: () -> Unit, onSettings: () -> Unit) {
+@Composable fun WelcomeScreen(s: GameStrings, theme: SudokuTheme, hasSavedGame: Boolean, dailyProgress: DailyChallengeProgress, onNewGame: () -> Unit, onDailyChallenge: () -> Unit, onContinue: () -> Unit, onLeaderboard: () -> Unit, onSettings: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(s.appName, fontSize = 60.sp, fontWeight = FontWeight.Black, color = theme.textMain)
         Spacer(modifier = Modifier.height(80.dp))
         PopButton(s.newGame, theme.primary, Color.White, onClick = onNewGame)
         Spacer(modifier = Modifier.height(20.dp))
         PopButton(s.dailyChallenge, theme.accent, theme.textMain, onClick = onDailyChallenge)
+        Spacer(modifier = Modifier.height(8.dp))
+        DailyChallengeBadge(s, theme, dailyProgress)
         Spacer(modifier = Modifier.height(20.dp))
         PopButton(s.continueGame, theme.secondary, theme.textMain, enabled = hasSavedGame, onClick = onContinue)
         Spacer(modifier = Modifier.height(20.dp))
@@ -324,6 +365,20 @@ private fun SplashSudokuMark(theme: SudokuTheme) {
         Spacer(modifier = Modifier.height(40.dp))
         IconButton(onClick = onSettings) { Icon(Icons.Default.Settings, s.settings, modifier = Modifier.size(32.dp), tint = theme.textMain.copy(alpha = 0.7f)) }
     }
+}
+
+@Composable fun DailyChallengeBadge(s: GameStrings, theme: SudokuTheme, dailyProgress: DailyChallengeProgress) {
+    val label = if (dailyProgress.completedToday) {
+        "${s.dailyDone} · ${s.streakLabel} ${dailyProgress.streak}"
+    } else {
+        "${s.streakLabel} ${dailyProgress.streak}"
+    }
+    Text(
+        text = label,
+        color = theme.textMain.copy(alpha = 0.56f),
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Bold,
+    )
 }
 
 @Composable fun PopButton(text: String, color: Color, textColor: Color, enabled: Boolean = true, onClick: () -> Unit) {

@@ -68,6 +68,15 @@ class SudokuGameTest {
     }
 
     @Test
+    fun dailyChallengeStreakContinuesOnlyFromPreviousDay() {
+        assertEquals(4, DailyChallengeTracker.nextStreak("20260527", "20260528", 3))
+        assertEquals(1, DailyChallengeTracker.nextStreak("20260526", "20260528", 8))
+        assertEquals(5, DailyChallengeTracker.nextStreak("20260528", "20260528", 5))
+        assertTrue(DailyChallengeTracker.isCompletedToday("20260528", "20260528"))
+        assertFalse(DailyChallengeTracker.isCompletedToday("20260527", "20260528"))
+    }
+
+    @Test
     fun wrongInputsTriggerGameOverAtDifficultyLimit() {
         val game = SudokuGame()
         game.generateNewGame(Difficulty.BEGINNER)

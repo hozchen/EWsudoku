@@ -21,3 +21,5 @@ packaged/
 *.keystore
 *.jks
 keystore.properties
+xcuserdata/
+*.xcuserstate

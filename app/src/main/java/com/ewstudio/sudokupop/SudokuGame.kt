@@ -3,6 +3,9 @@ package com.ewstudio.sudokupop
 import android.content.SharedPreferences
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import kotlin.random.Random
 
 // 9. 硬编码 Magic Number 消除：抽离常量
@@ -51,6 +54,29 @@ data class GameState(
     val isSolved: Boolean,
     val isGameOver: Boolean
 )
+
+object DailyChallengeTracker {
+    private val keyFormat = SimpleDateFormat("yyyyMMdd", Locale.US).apply {
+        isLenient = false
+    }
+
+    fun isCompletedToday(lastCompletedDateKey: String?, currentDateKey: String): Boolean {
+        return lastCompletedDateKey == currentDateKey
+    }
+
+    fun nextStreak(lastCompletedDateKey: String?, currentDateKey: String, currentStreak: Int): Int {
+        if (isCompletedToday(lastCompletedDateKey, currentDateKey)) return currentStreak
+        return if (lastCompletedDateKey == previousDateKey(currentDateKey)) currentStreak + 1 else 1
+    }
+
+    private fun previousDateKey(dateKey: String): String {
+        val date = keyFormat.parse(dateKey) ?: return ""
+        val calendar = Calendar.getInstance(Locale.US)
+        calendar.time = date
+        calendar.add(Calendar.DAY_OF_YEAR, -1)
+        return keyFormat.format(calendar.time)
+    }
+}
 
 // 2. 将 SudokuGame 升级为 ViewModel，确保 Compose 状态追踪正确
 class SudokuGame : ViewModel() {
