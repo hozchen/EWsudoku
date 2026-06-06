@@ -1,65 +1,97 @@
 # Sudoku Pop
 
-Sudoku Pop 是一款面向 Google Play 上架的轻量级数独游戏。当前目标是先完成低风险首版发布，再通过留存功能、用户反馈和后续版本逐步探索收入模式。
+这是我做的一个数独 App，准备先上架到 Google Play。
 
-## 当前状态
+目前还不是那种很复杂的产品，先把基础体验做好：打开能玩、题目正常、界面舒服一点、不要乱要权限，也不要一上来就塞广告。
 
-- Android 包名：`com.ewstudio.sudokupop`
-- 首版策略：免费、无广告、无内购、无账号登录
-- 核心玩法：经典 9x9 数独
-- 留存功能：每日挑战、连续挑战记录
-- 本地功能：笔记、提示、撤销、成绩记录、主题和语言切换
-- 隐私策略：首版不收集个人数据，不接入广告、统计或支付 SDK
+## 现在有什么
 
-## 上架策略
+- 经典 9x9 数独
+- 多个难度
+- 每日挑战
+- 连续挑战记录
+- 笔记模式
+- 提示
+- 撤销
+- 成绩记录
+- 亮色/暗色主题
+- 简体中文、繁体中文、英文、日文
 
-首版不要急着接广告或内购。先把应用通过 Google Play 内部测试/封闭测试，确认稳定性、商店资料、内容分级和数据安全表单都能顺利通过。
+Android 包名：
 
-推荐节奏：
+```text
+com.ewstudio.sudokupop
+```
 
-1. `1.0`：免费发布，无广告，验证审核和基础留存。
-2. `1.1`：增强留存，例如成就、分享胜利图、更多统计。
-3. `1.2`：考虑激励广告，例如额外提示或失败后继续。
-4. `1.3`：考虑一次性去广告或主题内购。
+## 我现在的想法
+
+第一版先免费，不接广告，不接内购，也不做登录。
+
+原因很简单：先过 Google Play 审核，先让应用稳定上线。等真的有人用了，再看要不要加激励广告、去广告内购、主题皮肤之类的东西。
+
+我不想一开始就把产品做得很重。数独这种东西，最重要还是打开就能玩，别烦人。
+
+## Google Play 方向
+
+首版大概按这个方向来：
+
+- 免费应用
+- 不包含广告
+- 不收集个人数据
+- 不需要账号
+- 不申请敏感权限
+- 先走内部测试/封闭测试
+
+隐私政策草稿在这里：
+
+```text
+PRIVACY_POLICY.md
+```
+
+上架资料和后续计划在这里：
+
+```text
+GOOGLE_PLAY_LAUNCH_PLAN.md
+```
 
 ## 构建
 
-项目使用 Android Gradle 构建。生成 Google Play 推荐上传的 AAB：
+生成 AAB：
 
 ```bash
 JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :app:bundleRelease
 ```
 
-运行单元测试：
+跑测试：
 
 ```bash
 JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :app:testDebugUnitTest
 ```
 
-生成文件位置：
+AAB 位置：
 
 ```text
 app/build/outputs/bundle/release/app-release.aab
 ```
 
-## Google Play 上传提醒
+## 注意
 
-- 上传 `.aab`，不要上传 debug APK。
-- 首版“是否包含广告”选择“否”。
-- 数据安全表单按“首版不收集个人数据”填写。
-- 目标受众选择普通用户，不要声明专门面向儿童。
-- 隐私政策可基于 `PRIVACY_POLICY.md` 发布成网页后填写链接。
-- 如果 Google Play 提示签名问题，用 Android Studio 的 `Generate Signed App Bundle / APK` 生成正式签名 AAB。
+不要把这些东西传上来：
 
-## 仓库规则
-
-不要提交以下内容：
-
-- APK/AAB 打包产物
-- 签名文件，如 `.jks`、`.keystore`
+- APK / AAB
+- 签名文件
 - `local.properties`
-- `app/build/`、`.gradle/` 等构建缓存
-- 本机个人配置，如 `.DS_Store`、`xcuserdata/`
+- `app/build/`
+- `.gradle/`
+- 本机配置文件
 
-这些内容已经在 `.gitignore` 中排除。
+这些基本都已经写进 `.gitignore` 了。
+
+## 后面要做
+
+- 完成 Google Play 账号验证
+- 上传内部测试版本
+- 补截图、商店描述、隐私政策链接
+- 看测试反馈改第一版
+- 稳了之后再考虑变现
 
