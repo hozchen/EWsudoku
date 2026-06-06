@@ -4,6 +4,14 @@
 
 目前还不是那种很复杂的产品，先把基础体验做好：打开能玩、题目正常、界面舒服一点、不要乱要权限，也不要一上来就塞广告。
 
+## 截图
+
+<p>
+  <img src="docs/screenshots/home.png" width="220" alt="Sudoku Pop 首页" />
+  <img src="docs/screenshots/game.png" width="220" alt="Sudoku Pop 游戏界面" />
+  <img src="docs/screenshots/victory.png" width="220" alt="Sudoku Pop 挑战成功" />
+</p>
+
 ## 现在有什么
 
 - 经典 9x9 数独
@@ -94,4 +102,3 @@ app/build/outputs/bundle/release/app-release.aab
 - 补截图、商店描述、隐私政策链接
 - 看测试反馈改第一版
 - 稳了之后再考虑变现
-
