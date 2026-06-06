@@ -305,18 +305,28 @@ class SudokuGame : ViewModel() {
         }
     }
 
-    fun onCellInput(row: Int, col: Int, value: Int, isNoteMode: Boolean) {
-        if (initialBoard[row][col] || isSolved || isGameOver) return
-        saveState()
+    fun onCellInput(row: Int, col: Int, value: Int, isNoteMode: Boolean): Boolean {
+        if (initialBoard[row][col] || isSolved || isGameOver) return false
         if (isNoteMode) {
-            if (value == 0) notes.remove(row to col)
-            else {
-                val currentSet = notes[row to col] ?: emptySet()
-                notes[row to col] = if (currentSet.contains(value)) currentSet - value else currentSet + value
+            val currentSet = notes[row to col] ?: emptySet()
+            if (value == 0) {
+                if (currentSet.isEmpty()) return false
+                saveState()
+                notes.remove(row to col)
+                return true
             }
-            return
+            if (currentSet.contains(value)) {
+                saveState()
+                notes[row to col] = currentSet - value
+                return true
+            }
+            if (!isValid(board, row, col, value)) return false
+            saveState()
+            notes[row to col] = currentSet + value
+            return true
         }
 
+        saveState()
         val newBoard = board.map { it.copyOf() }.toTypedArray()
         newBoard[row][col] = value
         board = newBoard
@@ -333,6 +343,7 @@ class SudokuGame : ViewModel() {
             errorCount++
             if (errorCount >= currentDifficulty.maxErrors) isGameOver = true
         }
+        return true
     }
 
     private fun autoClearNotes(row: Int, col: Int, value: Int) {

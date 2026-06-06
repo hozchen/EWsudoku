@@ -55,6 +55,19 @@ class SudokuGameTest {
     }
 
     @Test
+    fun noteInputRejectsDigitAlreadyVisibleInSameUnit() {
+        val game = SudokuGame()
+        game.generateNewGame(Difficulty.BEGINNER)
+        val (cell, invalidValue) = firstEditableCellWithVisibleConflict(game)
+        val (row, col) = cell
+
+        val accepted = game.onCellInput(row, col, invalidValue, isNoteMode = true)
+
+        assertFalse(accepted)
+        assertFalse(invalidValue in (game.notes[row to col] ?: emptySet()))
+    }
+
+    @Test
     fun dailyChallengeIsStableForSameDate() {
         val first = SudokuGame()
         val second = SudokuGame()
@@ -127,6 +140,23 @@ class SudokuGameTest {
 
     private fun firstEditableCell(game: SudokuGame): Pair<Int, Int> {
         return allEditableCells(game).first()
+    }
+
+    private fun firstEditableCellWithVisibleConflict(game: SudokuGame): Pair<Pair<Int, Int>, Int> {
+        for ((row, col) in allEditableCells(game)) {
+            for (i in 0 until SudokuConstants.GRID_SIZE) {
+                if (game.board[row][i] != 0) return (row to col) to game.board[row][i]
+                if (game.board[i][col] != 0) return (row to col) to game.board[i][col]
+            }
+            val startRow = (row / SudokuConstants.SUBGRID_SIZE) * SudokuConstants.SUBGRID_SIZE
+            val startCol = (col / SudokuConstants.SUBGRID_SIZE) * SudokuConstants.SUBGRID_SIZE
+            for (r in startRow until startRow + SudokuConstants.SUBGRID_SIZE) {
+                for (c in startCol until startCol + SudokuConstants.SUBGRID_SIZE) {
+                    if (game.board[r][c] != 0) return (row to col) to game.board[r][c]
+                }
+            }
+        }
+        error("No editable cell with a visible unit conflict")
     }
 
     private fun allEditableCells(game: SudokuGame): List<Pair<Int, Int>> {

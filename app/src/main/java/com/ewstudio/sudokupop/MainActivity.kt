@@ -462,19 +462,28 @@ private fun SplashSudokuMark(theme: SudokuTheme) {
         val remaining by remember { derivedStateOf { game.getRemainingCounts() } }
         Row(modifier = Modifier.padding(bottom = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             for (i in 1..SudokuConstants.GRID_SIZE) {
-                val count = remaining[i] ?: 0; val isFin = count == 0 && !isNoteMode
+                val count = remaining[i] ?: 0
+                val isCompleted = count == 0
+                val isDisabledForNormalInput = isCompleted && !isNoteMode
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = if(count>0) "$count" else "•", fontSize = 10.sp, color = theme.textMain.copy(alpha = 0.4f), fontWeight = FontWeight.Bold)
-                    Box(modifier = Modifier.size(width = (config.screenWidthDp / 11).dp, height = 62.dp).clip(RoundedCornerShape(14.dp)).background(if(isFin) theme.bg.copy(alpha = 0.4f) else if(isNoteMode) theme.accent else theme.primary).clickable(enabled = !isFin) {
+                    Text(text = if(count>0) "$count" else "•", fontSize = 10.sp, color = theme.textMain.copy(alpha = if (isDisabledForNormalInput) 0.18f else 0.4f), fontWeight = FontWeight.Bold)
+                    Box(modifier = Modifier.size(width = (config.screenWidthDp / 11).dp, height = 62.dp).clip(RoundedCornerShape(14.dp)).background(if(isDisabledForNormalInput) theme.cardBg.copy(alpha = 0.55f) else if(isNoteMode) theme.accent else theme.primary).clickable(enabled = !isDisabledForNormalInput) {
                         val r = selectedCell?.first ?: -1; val c = selectedCell?.second ?: -1
                         if (r != -1 && c != -1) {
-                            val oldErr = game.errorCount; game.onCellInput(r, c, i, isNoteMode)
-                            if(!isNoteMode) {
+                            val oldErr = game.errorCount
+                            val accepted = game.onCellInput(r, c, i, isNoteMode)
+                            if (isNoteMode) {
+                                if (!accepted) {
+                                    triggerVibration(context, 180)
+                                    onPlayError()
+                                    Toast.makeText(context, "行、列或宫里已有 $i", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
                                 if(game.errorCount > oldErr) { triggerVibration(context, 250); onPlayError() }
-                                else { triggerVibration(context, 40); onPlayCorrect() }
+                                else if (accepted) { triggerVibration(context, 40); onPlayCorrect() }
                             }
                         }
-                    }, contentAlignment = Alignment.Center) { Text("$i", fontSize = 20.sp, fontWeight = FontWeight.Black, color = if(isFin) theme.textMain.copy(alpha = 0.15f) else if(isNoteMode) theme.textMain else Color.White) }
+                    }, contentAlignment = Alignment.Center) { Text("$i", fontSize = 20.sp, fontWeight = FontWeight.Black, color = if(isDisabledForNormalInput) theme.textMain.copy(alpha = 0.22f) else if(isNoteMode) theme.textMain else Color.White) }
                 }
             }
         }
@@ -596,6 +605,7 @@ private fun ResultMoodAnimation(success: Boolean, theme: SudokuTheme) {
                         isSameValue = selVal != 0 && game.board[row][col] == selVal,
                         isError = game.errorCells[row to col] ?: false,
                         cellNotes = game.notes[row to col] ?: emptySet(),
+                        highlightedNoteValue = selVal,
                         cellSize = cellSize,
                         cellGap = cellGap,
                         theme = theme,
@@ -643,6 +653,7 @@ private fun SudokuCell(
     isSameValue: Boolean,
     isError: Boolean,
     cellNotes: Set<Int>,
+    highlightedNoteValue: Int,
     cellSize: Dp,
     cellGap: Dp,
     theme: SudokuTheme,
@@ -670,14 +681,21 @@ private fun SudokuCell(
                 },
             )
         } else if (cellNotes.isNotEmpty()) {
-            val noteFontSize = max(7f, cellSize.value * 0.17f).sp
-            Column(Modifier.fillMaxSize().padding(3.dp)) {
+            val noteFontSize = min(8f, max(5f, cellSize.value * 0.15f)).sp
+            val notePadding = if (cellSize < 38.dp) 1.dp else 2.dp
+            val noteCorner = if (cellSize < 38.dp) 2.dp else 3.dp
+            Column(Modifier.fillMaxSize().padding(notePadding)) {
                 for (noteRow in 0 until SudokuConstants.SUBGRID_SIZE) {
                     Row(Modifier.weight(1f).fillMaxWidth()) {
                         for (noteCol in 0 until SudokuConstants.SUBGRID_SIZE) {
                             val noteValue = noteRow * SudokuConstants.SUBGRID_SIZE + noteCol + 1
+                            val isHighlightedNote = highlightedNoteValue != 0 && noteValue == highlightedNoteValue
                             Box(
-                                modifier = Modifier.weight(1f).fillMaxHeight(),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .clip(RoundedCornerShape(noteCorner))
+                                    .background(if (isHighlightedNote) theme.accent.copy(alpha = 0.55f) else Color.Transparent),
                                 contentAlignment = Alignment.Center,
                             ) {
                                 if (noteValue in cellNotes) {
@@ -685,11 +703,14 @@ private fun SudokuCell(
                                         "$noteValue",
                                         fontSize = noteFontSize,
                                         lineHeight = noteFontSize,
-                                        fontWeight = FontWeight.Bold,
+                                        fontWeight = if (isHighlightedNote) FontWeight.Black else FontWeight.Bold,
                                         textAlign = TextAlign.Center,
                                         maxLines = 1,
-                                        color = if (isSelected) Color.White.copy(alpha = 0.72f)
-                                        else theme.textMain.copy(alpha = 0.46f),
+                                        color = when {
+                                            isSelected -> Color.White.copy(alpha = 0.78f)
+                                            isHighlightedNote -> theme.textMain
+                                            else -> theme.textMain.copy(alpha = 0.46f)
+                                        },
                                     )
                                 }
                             }
