@@ -82,23 +82,8 @@ AAB 位置：
 app/build/outputs/bundle/release/app-release.aab
 ```
 
-## 注意
+## 进度
 
-不要把这些东西传上来：
+现在主要在打磨 Android 版本，先把 Google Play 的第一版跑通。
 
-- APK / AAB
-- 签名文件
-- `local.properties`
-- `app/build/`
-- `.gradle/`
-- 本机配置文件
-
-这些基本都已经写进 `.gitignore` 了。
-
-## 后面要做
-
-- 完成 Google Play 账号验证
-- 上传内部测试版本
-- 补截图、商店描述、隐私政策链接
-- 看测试反馈改第一版
-- 稳了之后再考虑变现
+后面会继续补一些真正有用的小东西，比如更好的统计、胜利分享图、主题皮肤之类的。先不急着堆功能，慢慢把它做稳。
