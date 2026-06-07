@@ -2,9 +2,9 @@
 
 # Sudoku Pop
 
-一个正在准备上架 Google Play 的数独 App。先把它做稳，再慢慢考虑变现。
+轻量、彩色、适合日常逻辑训练的数独 App。
 
-A Sudoku app being prepared for Google Play. Make it stable first, then think about monetization.
+A lightweight, colorful Sudoku app for everyday logic practice.
 
 ![Android](https://img.shields.io/badge/Android-35-3DDC84?logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Kotlin-Compose-7F52FF?logo=kotlin&logoColor=white)
@@ -24,11 +24,11 @@ A Sudoku app being prepared for Google Play. Make it stable first, then think ab
 
 ## 中文
 
-这是我做的一个数独 App，准备先上架到 Google Play。
+Sudoku Pop 是一款轻量级数独游戏，主打清爽界面、快速开局和日常逻辑训练。
 
-目前还不是那种很复杂的产品。我现在想先把基础体验做好：打开能玩、题目正常、界面舒服一点、不要乱要权限，也不要一上来就塞广告。
+产品保持克制：不需要账号，不申请敏感权限，不用复杂系统打断玩家。打开就能玩，是第一优先级。
 
-### 现在有什么
+### 核心功能
 
 - 经典 9x9 数独
 - 多个难度
@@ -47,15 +47,9 @@ Android 包名：
 com.ewstudio.sudokupop
 ```
 
-### 我现在的想法
+### 发布策略
 
-第一版先免费，不接广告，不接内购，也不做登录。
-
-原因很简单：先过 Google Play 审核，先让应用稳定上线。等真的有人用了，再看要不要加激励广告、去广告内购、主题皮肤之类的东西。
-
-我不想一开始就把产品做得很重。数独这种东西，最重要还是打开就能玩，别烦人。
-
-### Google Play 方向
+首版以稳定上架和基础体验为主：
 
 - 免费应用
 - 不包含广告
@@ -68,19 +62,21 @@ com.ewstudio.sudokupop
 
 上架资料和后续计划：`GOOGLE_PLAY_LAUNCH_PLAN.md`
 
-### 进度
+### 路线图
 
-现在主要在打磨 Android 版本，先把 Google Play 的第一版跑通。
-
-后面会继续补一些真正有用的小东西，比如更好的统计、胜利分享图、主题皮肤之类的。先不急着堆功能，慢慢把它做稳。
+- 完成 Google Play 首版测试发布
+- 优化统计和完成反馈
+- 增加胜利分享图
+- 增加更多主题皮肤
+- 在留存稳定后，再评估激励广告或去广告内购
 
 ## English
 
-Sudoku Pop is a Sudoku app I am building, with Google Play as the first release target.
+Sudoku Pop is a lightweight Sudoku game focused on a clean interface, fast play, and everyday logic practice.
 
-It is not trying to be a huge product from day one. The first goal is simple: make it playable, keep the puzzles solid, make the UI feel decent, avoid unnecessary permissions, and not throw ads at people immediately.
+The product stays intentionally simple: no account required, no sensitive permissions, and no heavy systems getting in the player's way. Open the app, start a puzzle, play.
 
-### What's inside
+### Core features
 
 - Classic 9x9 Sudoku
 - Multiple difficulty levels
@@ -99,15 +95,9 @@ Android package name:
 com.ewstudio.sudokupop
 ```
 
-### Current thinking
+### Release strategy
 
-The first version will be free, with no ads, no in-app purchases, and no login.
-
-The reason is simple: get through Google Play review first and make sure the app is stable in the store. If people actually use it, then I can think about rewarded ads, removing ads, themes, or other paid extras.
-
-I do not want to make the product heavy too early. For a Sudoku app, the most important thing is that people can open it and start playing without being annoyed.
-
-### Google Play direction
+The first release is focused on a stable launch and a clean baseline experience:
 
 - Free app
 - No ads
@@ -120,11 +110,13 @@ Privacy policy draft: `PRIVACY_POLICY.md`
 
 Launch notes and next steps: `GOOGLE_PLAY_LAUNCH_PLAN.md`
 
-### Progress
+### Roadmap
 
-Right now I am mainly polishing the Android version and getting the first Google Play release path working.
-
-Later I want to add things that actually help the game, like better stats, a shareable win screen, and more themes. No rush to pile on features. I would rather make it stable step by step.
+- Complete the first Google Play test release
+- Improve stats and completion feedback
+- Add a shareable win screen
+- Add more visual themes
+- Evaluate rewarded ads or an ad-free purchase after retention is stable
 
 ## Build
 
@@ -145,4 +137,3 @@ AAB output:
 ```text
 app/build/outputs/bundle/release/app-release.aab
 ```
-
